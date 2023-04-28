@@ -9,5 +9,6 @@ Cambiar el archivo listener.ora --- > El localhost de nuestro ordenador por "127
 
 Conectar como "sys as sysdba" y poner esto :
 alter system set LOCAL_LISTENER='(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=1521))' scope=both;
+
 alter system register;
 --------------------------------------------------------------------------------
