@@ -18,18 +18,31 @@ import java.sql.Statement;
  */
 public class BBDD {
 
-        private static int getEmployeeId(Connection conexion, String nombre) throws SQLException {
-            PreparedStatement stmt = conexion.prepareStatement("SELECT employee_id FROM employees WHERE FIRST_NAME=?");
-            stmt.setString(1, nombre);
-            String query = "SELECT employee_id FROM employees WHERE FIRST_NAME='"+nombre+"'";
-
-            ResultSet resultado = stmt.executeQuery(query);
+        private static int getEmployeeId(Connection conexion, String nombre) {
             int id=0;
-            if(resultado.next()){
-                 id = resultado.getInt(1);//0 se refiere a la posicion de employee_id en el query   
+            PreparedStatement stmt = null;
+            ResultSet resultado = null;
+            try{
+                //añadimos el prepared y el interrogante por una seguridad de inyeccion de sql
+                stmt = conexion.prepareStatement("SELECT employee_id FROM employees WHERE FIRST_NAME=?");
+                stmt.setString(1, nombre);
+                String query = "SELECT employee_id FROM employees WHERE FIRST_NAME='"+nombre+"'";
+
+                resultado = stmt.executeQuery(query);
+                if(resultado.next()){
+                     id = resultado.getInt(1);//0 se refiere a la posicion de employee_id en el query   
+                }
+            }catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }finally{
+                try{
+                    if(resultado != null) resultado.close();
+                    if(stmt != null) stmt.close();
+                }catch(SQLException e){
+                    System.out.println(e.getMessage());
+                }
             }
-            resultado.close();
-            stmt.close();
+
             return id;
         }
     /**
