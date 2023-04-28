@@ -7,6 +7,7 @@ package bbdd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,8 +19,8 @@ import java.sql.Statement;
 public class BBDD {
 
         private static int getEmployeeId(Connection conexion, String nombre) throws SQLException {
-            Statement stmt = conexion.createStatement();
-
+            PreparedStatement stmt = conexion.prepareStatement("SELECT employee_id FROM employees WHERE FIRST_NAME=?");
+            stmt.setString(1, nombre);
             String query = "SELECT employee_id FROM employees WHERE FIRST_NAME='"+nombre+"'";
 
             ResultSet resultado = stmt.executeQuery(query);
