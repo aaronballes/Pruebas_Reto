@@ -1,0 +1,11 @@
+- Exportar una base de datos en sql
+En SQL Developer:
+	-Herramientas
+	-Exportacion de base de datos
+	-Pones la conexion donde tengo las tablas y todo siguiente
+--------------------------------------------------------------------------
+- Importar
+En SQL Command Line creo el usuario y le doy los permisos necesarios
+En SQL Command Line copio toda la exportacion que hemos hecho antes
+
+-------------------------------------------------------------------------
